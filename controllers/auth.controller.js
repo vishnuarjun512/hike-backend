@@ -105,6 +105,7 @@ export const login = async (req, res) => {
       friendRequests: user.friendRequests,
     };
 
+    console.log("User logged in:", userResponse);
     res.json({
       error: false,
       message: "Login successful",
