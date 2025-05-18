@@ -52,6 +52,7 @@ const connectDB = async () => {
 };
 
 app.get("/", (req, res) => {
+  console.log("Someone hit the API");
   res.send("API is running...");
 });
 
