@@ -51,6 +51,10 @@ const connectDB = async () => {
   }
 };
 
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
+
 // Start server only after DB connection
 connectDB().then(() => {
   const PORT = process.env.PORT || 5000;
