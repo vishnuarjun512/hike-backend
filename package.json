@@ -20,13 +20,18 @@
   },
   "homepage": "https://github.com/vishnuarjun512/Hike#readme",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.812.0",
+    "@aws-sdk/s3-request-presigner": "^3.812.0",
+    "aws-sdk": "^2.1692.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "express-fileupload": "^1.5.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.14.0",
+    "multer": "^1.4.5-lts.2",
     "nodemon": "^3.1.9",
     "uuid": "^11.1.0"
   }
