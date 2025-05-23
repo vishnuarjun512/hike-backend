@@ -7,13 +7,21 @@ const PostSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    title: {
+      type: String,
+      required: true,
+    },
     content: {
       type: String,
       required: true,
     },
-    image: {
-      type: String,
-    },
+    images: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
+
     likes: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -21,6 +29,15 @@ const PostSchema = new mongoose.Schema(
         default: [],
       },
     ],
+    likesCount: {
+      type: Number,
+      default: 0,
+    },
+    commentsCount: {
+      type: Number,
+      default: 0,
+    },
+
     comments: [
       {
         userId: {

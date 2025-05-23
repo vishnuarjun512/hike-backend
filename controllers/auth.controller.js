@@ -9,7 +9,6 @@ const router = express.Router();
 export const register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    console.log("Registering user:", { username, email, password });
 
     // Check if user exists - Mongoose version
     const existingUser = await User.findOne({
@@ -41,7 +40,7 @@ export const register = async (req, res) => {
       createdAt: newUser.createdAt,
     };
 
-    res.status(201).json({
+    res.status(200).json({
       error: false,
       message: "User registered successfully",
       user: userResponse,
@@ -105,8 +104,7 @@ export const login = async (req, res) => {
       friendRequests: user.friendRequests,
     };
 
-    console.log("User logged in:", userResponse);
-    res.json({
+    res.status(200).json({
       error: false,
       message: "Login successful",
       user: userResponse,

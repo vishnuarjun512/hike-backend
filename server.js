@@ -19,15 +19,12 @@ app.use(
   })
 );
 
-// Middleware
-app.use(bodyParser.json());
-
-app.use(express.json({ limit: "10mb" }));
+app.use(express.json());
 
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
-app.use("/api/posts", postRoutes);
+app.use("/api/post", postRoutes);
 app.use("/api/friend", friendRoutes);
 
 // Error handling middleware

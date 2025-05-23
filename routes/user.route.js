@@ -6,27 +6,9 @@ import {
   deleteUser,
 } from "../controllers/user.controller.js";
 import { authenticateUser } from "../middleware/auth.middleware.js";
-import AWS from "aws-sdk";
+
 import User from "../models/User.model.js";
-
-// Configure AWS SDK
-AWS.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID, // Your access key
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY, // Your secret key
-  region: process.env.AWS_REGION || "ap-south-1", // Your region
-  signatureVersion: "v4",
-});
-
-const s3 = new AWS.S3();
-
-const getUploadUrl = (bucketName, key, expiresInSeconds = 300) => {
-  // This generates a presigned URL for PUT (upload)
-  return s3.getSignedUrl("putObject", {
-    Bucket: bucketName,
-    Key: key,
-    Expires: expiresInSeconds,
-  });
-};
+import { getUploadUrl } from "../utils/s3-client.js";
 
 const router = express.Router();
 

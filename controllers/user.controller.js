@@ -28,23 +28,30 @@ export const getUserById = async (req, res) => {
 export const updateUser = async (req, res) => {
   try {
     const { name, email } = req.body;
+    const userId = req.params.id;
 
-    // Basic validation
-    if (email && !/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(email)) {
+    console.log("User ID:", userId);
+    console.log("Name:", name);
+    console.log("Email:", email);
+
+    if (!userId) {
+      return res.status(400).json({ error: "User ID is required" });
+    }
+
+    if (name == "" || email == "") {
+      return res.status(400).json({ error: "Name and email are required" });
+    }
+
+    // Replace your old regex with this:
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return res.status(400).json({ error: "Invalid email format" });
     }
 
-    // Convert req.params.id to a valid ObjectId
-    try {
-      const userId = new mongoose.Types.ObjectId(req.params.id); // Use 'new'
-    } catch (error) {
-      return res.status(400).json({ error: "Invalid User ID" });
-    }
-
+    // Update and return the new document
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { name: name, email: email }, // Specify the fields to update
-      { new: true, runValidators: true } //  options: return updated, run validators
+      { name, email },
+      { new: true, runValidators: true }
     );
 
     if (!updatedUser) {
@@ -53,9 +60,8 @@ export const updateUser = async (req, res) => {
         .json({ success: false, message: "User not found" });
     }
 
-    // You can choose to return only selected fields
     res.json({
-      message: "New data for " + updatedUser.name + " has been updated!",
+      message: `New data for ${updatedUser.name} has been updated!`,
       success: true,
       user: {
         _id: updatedUser._id,
