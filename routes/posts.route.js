@@ -101,7 +101,6 @@ router.get("/:userId", async (req, res) => {
       .sort({ createdAt: -1 })
       .populate("userId", "-password"); // Populate user details except password
 
-    console.log(posts);
     res.json({ success: true, posts });
   } catch (error) {
     console.error("Error fetching friend posts:", error);

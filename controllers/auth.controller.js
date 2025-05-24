@@ -87,7 +87,7 @@ export const login = async (req, res) => {
     );
 
     // Set cookie
-    res.cookie("token", token, {
+    res.cookie("hikeToken", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
@@ -121,10 +121,19 @@ export const login = async (req, res) => {
 
 // LOGOUT ROUTE
 export const logout = (req, res) => {
-  res.clearCookie("token");
-  res.json({
-    error: false,
-    message: "Logged out successfully",
+  const { userId } = req.body; // Assuming you have middleware to set req.userId
+  if (!userId) {
+    return res.status(400).json({
+      error: true,
+      message: "User not logged in",
+    });
+  }
+  // Clear cookie
+  res.cookie("hikeToken", "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 0, // Set maxAge to 0 to delete the cookie
   });
 };
 
